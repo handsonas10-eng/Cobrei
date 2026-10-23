@@ -56,7 +56,27 @@ nav button.on::before{content:"";display:block;width:5px;height:5px;border-radiu
 nav button:not(.on)::before{content:"";display:block;height:9px}
 #toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--ok);color:#06251A;padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:5}
 #toast.on{opacity:1}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+h1,.big{text-shadow:0 1px 0 #fff4,0 3px 5px #0009,0 0 24px #8B6BFF77;animation:glow 4s ease-in-out infinite}
+@keyframes glow{50%{text-shadow:0 1px 0 #fff5,0 3px 5px #0009,0 0 36px #8B6BFFcc}}
+h2{text-shadow:0 0 12px #8B6BFF55}
+.logo{box-shadow:0 0 28px #8B6BFF88;animation:bob 3.5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.row{transition:transform .2s,background .2s}
+.row:hover{transform:translateY(-2px);background:#ffffff08}
+.fab{transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
+.fab:hover,.fab:active{transform:translateY(-6px) scale(1.1);box-shadow:0 14px 30px #8B6BFF99}
+nav button::before{content:none!important}
+.ic{width:24px;height:24px;display:block;margin:0 auto 4px;filter:drop-shadow(0 -1px 0 #fff4) drop-shadow(0 2px 2px #0009);transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .25s}
+nav button:hover .ic,nav button:active .ic{transform:translateY(-7px) scale(1.2);filter:drop-shadow(0 -1px 0 #fff8) drop-shadow(0 6px 4px #000b) drop-shadow(0 0 10px #8B6BFFcc)}
+nav button.on .ic{color:var(--ac2);filter:drop-shadow(0 0 8px #8B6BFFcc);animation:flt 3s ease-in-out infinite}
+nav button.on:hover .ic{animation:none}
+@keyframes flt{50%{transform:translateY(-3px)}}
+.two span{display:inline-block}
+h1,h2,p,label,.row span,.seg button,.chip,.kv span,.tag,.two span,.two b,.big{transition:transform .22s cubic-bezier(.3,1.6,.5,1),text-shadow .22s}
+h1:hover,h2:hover,p:hover,label:hover,.row span:hover,.seg button:hover,.chip:hover,.kv span:hover,.tag:hover,.two span:hover{transform:translateY(-2px);text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 16px #8B6BFFaa;animation:none}
+.big:hover,.two b:hover{transform:translateY(-4px) scale(1.06);transform-origin:left center;text-shadow:0 1px 0 #fff8,0 5px 6px #000c,0 0 30px #8B6BFFee;animation:none}
+nav button:hover{text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 14px #8B6BFFaa}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -94,6 +114,7 @@ function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");setTime
 function linhaCobr(c){var s=st(c);return '<button class="row" onclick="go(\'detalhe\','+c.id+')"><span>'+c.nome+'<small>'+brl(c.valor)+' · '+fd(c.venc)+'</small></span><span class="tag '+s.c+'">'+s.t+'</span></button>'}
 
 var tabs=[["inicio","Início"],["clientes","Clientes"],["cobrancas","Cobranças"],["lembretes","Lembretes"],["conta","Conta"]];
+var ICO={inicio:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',clientes:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.2c2 .6 3.5 2.4 3.5 5.8"/>',cobrancas:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/>',lembretes:'<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/>',conta:'<circle cx="12" cy="9" r="3.5"/><path d="M5 20c.8-3.4 3.6-5 7-5s6.2 1.6 7 5"/>'};
 var V={
  welcome:function(){return '<div class="welcome"><div class="logo">₢</div><h1>Cobrei</h1><p>Seus clientes são lembrados na hora certa. Você só recebe.</p><button class="btn" onclick="go(\'cadastro\')">Criar minha conta</button><button class="btn ghost" onclick="go(\'inicio\')">Já tenho conta</button></div>'},
  cadastro:function(){return '<button class="back" onclick="go(\'welcome\')">‹ Voltar</button><h1>Crie sua conta</h1><p>Cadastre sua empresa para começar a cobrar.</p><label>Seu nome</label><input id="rNome" placeholder="Nome completo"><label>Nome da empresa</label><input id="rEmp" placeholder="Ex.: Agência Norte Marketing"><label>CNPJ</label><input id="rDoc" inputmode="numeric" placeholder="00.000.000/0000-00"><label>E-mail</label><input id="rMail" inputmode="email" placeholder="voce@empresa.com"><label>WhatsApp</label><input id="rZap" inputmode="tel" placeholder="(34) 99999-0000"><label>Senha</label><input id="rSen" type="password"><button class="btn" onclick="cadastrar()">Criar conta</button>'},
@@ -149,7 +170,7 @@ function go(v,a){
   var show=["welcome","cadastro","nova","novoCliente","detalhe"].indexOf(v)<0;
   $("nav").style.display=show?"flex":"none";
   var cur=v;
-  $("nav").firstChild.innerHTML=tabs.map(function(t){return '<button class="'+(t[0]===cur?'on':'')+'" onclick="go(\''+t[0]+'\')">'+t[1]+'</button>'}).join("");
+  $("nav").firstChild.innerHTML=tabs.map(function(t){return '<button class="'+(t[0]===cur?'on':'')+'" onclick="go(\''+t[0]+'\')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICO[t[0]]+'</svg>'+t[1]+'</button>'}).join("");
 }
 function conectar(){S.conectado=true;toast("Conta conectada");go("inicio")}
 function tog(d){var i=S.regua.indexOf(d);if(i>-1)S.regua.splice(i,1);else S.regua.push(d);S.regua.sort(function(a,b){return b-a});go("lembretes")}
