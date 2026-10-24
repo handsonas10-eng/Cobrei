@@ -33,10 +33,12 @@ p{margin:0 0 14px;color:var(--mu)}
 .seg button{background:none;border:0;border-bottom:2px solid transparent;color:var(--mu);font:inherit;font-size:14px;padding:6px 0;cursor:pointer;white-space:nowrap}
 .seg button.on{color:var(--tx);border-color:var(--ac)}
 label{display:block;font-size:13px;color:var(--mu);margin:20px 0 4px}
-input,select{width:100%;background:none;border:0;border-bottom:1px solid var(--ln);color:var(--tx);padding:9px 0;font:inherit;font-size:16px;border-radius:0}
+input,select,textarea{width:100%;background:none;border:0;border-bottom:1px solid var(--ln);color:var(--tx);padding:9px 0;font:inherit;font-size:16px;border-radius:0}
+textarea{min-height:96px;resize:vertical;border:1px solid var(--ln);border-radius:12px;padding:12px;font-size:14px}
 select option{background:var(--sf)}
-input:focus,select:focus{outline:none;border-color:var(--ac2)}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--ac2)}
 button:focus-visible{outline:2px solid var(--ac2);outline-offset:3px}
+button{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
 .btn{background:var(--ac);color:#fff;border:0;border-radius:14px;padding:14px;font:inherit;font-weight:600;cursor:pointer;width:100%;margin-top:28px}
 .btn.ghost{background:none;border:1px solid var(--ln);color:var(--ac2);margin-top:12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
@@ -52,8 +54,6 @@ nav{position:fixed;left:0;right:0;bottom:0;background:#090A1Cee;backdrop-filter:
 nav div{display:flex;width:100%;max-width:520px}
 nav button{flex:1;background:none;border:0;color:var(--mu);font:inherit;font-size:13px;padding:6px 0;cursor:pointer}
 nav button.on{color:var(--tx);font-weight:600}
-nav button.on::before{content:"";display:block;width:5px;height:5px;border-radius:50%;background:var(--ac);margin:0 auto 4px}
-nav button:not(.on)::before{content:"";display:block;height:9px}
 #toast{position:fixed;left:50%;top:calc(16px + env(safe-area-inset-top,0px));transform:translateX(-50%);background:var(--ok);color:#06251A;padding:10px 18px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:5}
 #toast.on{opacity:1}
 h1,.big{text-shadow:0 1px 0 #fff4,0 3px 5px #0009,0 0 24px #8B6BFF77;animation:glow 4s ease-in-out infinite}
@@ -61,27 +61,136 @@ h1,.big{text-shadow:0 1px 0 #fff4,0 3px 5px #0009,0 0 24px #8B6BFF77;animation:g
 h2{text-shadow:0 0 12px #8B6BFF55}
 .logo{box-shadow:0 0 28px #8B6BFF88;animation:bob 3.5s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-6px)}}
+.welcome{text-align:center}
+.welcome .logo{width:88px;height:88px;border-radius:28px;font-size:44px;font-weight:600;margin:0 auto 28px;position:relative;background:linear-gradient(120deg,#8B6BFF,#33199B,#C0B1FF,#8B6BFF);background-size:300% 100%;box-shadow:0 0 40px #8B6BFFaa,inset 0 1px 0 #fff5;animation:float 3.2s ease-in-out infinite,shine 5s linear infinite}
+.welcome .logo::before,.welcome .logo::after{content:"";position:absolute;inset:0;border-radius:inherit;border:2px solid #8B6BFF;opacity:0;animation:ring 2.8s ease-out infinite;pointer-events:none}
+.welcome .logo::after{animation-delay:1.4s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes ring{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.9);opacity:0}}
+@keyframes shine{to{background-position:300% 0}}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}}
+#app.ini>*:not(.fab){animation:rise .6s cubic-bezier(.2,.8,.2,1) backwards}
+#app.ini>:nth-child(2){animation-delay:.05s}#app.ini>:nth-child(3){animation-delay:.1s}#app.ini>:nth-child(4){animation-delay:.15s}#app.ini>:nth-child(5){animation-delay:.2s}#app.ini>:nth-child(6){animation-delay:.25s}#app.ini>:nth-child(7){animation-delay:.3s}#app.ini>:nth-child(8){animation-delay:.35s}#app.ini>:nth-child(9){animation-delay:.4s}#app.ini>:nth-child(10){animation-delay:.45s}
+#app.ini>.big{animation:rise .6s cubic-bezier(.2,.8,.2,1) .1s backwards,glow 4s ease-in-out infinite}
+#app.ini>.big:active{animation:none}
+@media(hover:hover){#app.ini>.big:hover{animation:none}}
+.bar{box-shadow:0 0 14px #8B6BFF33}
+.bar i{background:linear-gradient(90deg,#8B6BFF,#C0B1FF,#8B6BFF);background-size:200% 100%;box-shadow:0 0 12px #8B6BFFcc;transition:width 1.1s cubic-bezier(.2,.8,.2,1);animation:shine 3s linear infinite}
+.gr rect{transform-box:fill-box;transform-origin:bottom;animation:grow .9s cubic-bezier(.2,.8,.2,1) backwards}
+.gr rect:nth-of-type(2){animation-delay:.08s}.gr rect:nth-of-type(3){animation-delay:.16s}.gr rect:nth-of-type(4){animation-delay:.24s}.gr rect:nth-of-type(5){animation-delay:.32s}.gr rect:nth-of-type(6){animation-delay:.4s}
+@keyframes grow{from{transform:scaleY(0)}}
+.saldo{border-radius:22px;padding:20px;background:linear-gradient(160deg,#1a1450,#12103A 70%);border:1px solid var(--ln)}
+.acts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:20px}
+.acts .btn{margin-top:0;padding:13px 8px;font-size:14px}
+#app.ini .fab{animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 8px 38px #8B6BFFcc}}
+.glass{border-radius:22px;border:1px solid #8B6BFF55;background:linear-gradient(145deg,#ffffff10,#ffffff03),radial-gradient(120% 90% at 100% 0%,#8B6BFF2b,transparent 60%),#12103Aaa;box-shadow:inset 0 1px 0 #ffffff1a,0 14px 40px #00000066;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.glass.cht{padding:18px 18px 12px;margin-top:20px}
+.glass.cht h2{margin-top:0}
+@keyframes pgin{from{opacity:0;transform:translateY(18px)}}
+@keyframes pgout{to{opacity:0;transform:translateY(-8px)}}
+#app.pg>*:not(.fab){animation:pgin .5s cubic-bezier(.2,.8,.2,1) backwards}
+#app.pg>:nth-child(2){animation-delay:.04s}#app.pg>:nth-child(3){animation-delay:.08s}#app.pg>:nth-child(4){animation-delay:.12s}#app.pg>:nth-child(5){animation-delay:.16s}#app.pg>:nth-child(6){animation-delay:.2s}#app.pg>:nth-child(7){animation-delay:.24s}#app.pg>:nth-child(8){animation-delay:.28s}#app.pg>:nth-child(9){animation-delay:.32s}#app.pg>:nth-child(10){animation-delay:.36s}
+#app.pg>h1,#app.pg>.big{animation:pgin .5s cubic-bezier(.2,.8,.2,1) backwards,glow 4s ease-in-out infinite}
+#app.pg>h1:active,#app.pg>.big:active{animation:none}
+@media(hover:hover){#app.pg>h1:hover,#app.pg>.big:hover{animation:none}}
+#app.out>*:not(.fab){animation:pgout .14s ease-in forwards}
+#ind{position:absolute;top:0;left:0;width:34px;height:3px;border-radius:0 0 4px 4px;background:var(--ac2);box-shadow:0 0 12px #8B6BFFcc;transition:transform .45s cubic-bezier(.3,1.4,.5,1);pointer-events:none}
+body{font-variant-numeric:tabular-nums}
+.lf{display:flex;align-items:center;min-width:0}.lf>span{min-width:0}
+.av{display:inline-grid;place-items:center;flex:none;width:40px;height:40px;margin-right:12px;border-radius:50%;font-style:normal;font-weight:600;font-size:14px;color:#fff;background:linear-gradient(135deg,hsl(var(--h) 70% 58%),hsl(calc(var(--h) + 35) 65% 40%));box-shadow:inset 0 1px 0 #ffffff40}
+.swr{position:relative;overflow:hidden;overflow:clip visible}
+.swf{position:relative;background:var(--bg);transition:transform .3s cubic-bezier(.2,.8,.2,1);touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.swa{position:absolute;top:0;right:0;bottom:0;display:flex;align-items:center;gap:6px;padding-right:2px}
+.swa button{border:0;color:#fff;font:inherit;font-size:13px;font-weight:600;width:70px;height:52px;border-radius:14px;cursor:pointer}
+.swa .a1{background:var(--ac)}.swa .a2{background:#1f9d73}
+.ins{margin:10px 0 4px;color:var(--tx);font-size:14px}
+.trust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;margin-top:26px;font-size:12px;color:var(--mu)}
+.trust.l{justify-content:flex-start;margin:0 0 6px}
+.trust span{display:inline-flex;align-items:center;gap:6px}.trust svg{width:15px;height:15px;color:var(--ok)}
+.hint{margin-top:24px;font-size:12px;color:var(--mu);animation:hb 2s ease-in-out infinite}
+@keyframes hb{50%{transform:translateY(6px)}}
+.how{padding:30px 0 10px}.how>h2{text-align:center;margin:0 0 30px}
+.mk{display:flex;align-items:center;gap:18px;margin:0 0 36px;opacity:0;transform:translateX(-70px);transition:opacity .7s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+.mk.r{flex-direction:row-reverse;transform:translateX(70px)}
+.mk.in{opacity:1;transform:none}
+.ph{width:132px;flex:none;min-height:150px;border-radius:22px;padding:14px;display:flex;flex-direction:column;justify-content:center;gap:10px;border:1px solid #8B6BFF55;background:linear-gradient(145deg,#ffffff10,#ffffff03),#12103A;box-shadow:inset 0 1px 0 #ffffff1a,0 14px 30px #00000066}
+.mk.in .ph{animation:bob 4s ease-in-out infinite}
+.ln{display:block;height:9px;border-radius:5px;background:var(--ln)}.ln.w1{width:90%;background:var(--ac)}.ln.w2{width:70%}.ln.w3{width:50%}
+.ch{font-size:11px;padding:6px 8px;border:1px solid var(--ln);border-radius:99px;text-align:center;color:var(--mu)}.ch.on{border-color:var(--ac);color:var(--tx);background:var(--bg)}
+.ph.ok3{align-items:center;text-align:center;gap:8px}.ph.ok3 svg{width:48px;height:48px}.ph.ok3 circle{fill:none;stroke:var(--ok);stroke-width:2}.ph.ok3 path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.mt b{display:block;font-size:16px;margin-bottom:4px}.mt p{margin:0;font-size:14px}
+.vz{text-align:center;padding:40px 10px}
+.vz svg{width:96px;height:96px;display:block;margin:0 auto 14px;animation:bob 3.2s ease-in-out infinite}
+.vz svg circle:first-child{transform-origin:center;transform-box:fill-box;animation:spinr 18s linear infinite}
+@keyframes spinr{to{transform:rotate(360deg)}}
+.vz b{display:block;font-size:17px}
+.vz .btn{width:auto;padding:12px 26px;margin-top:6px}
+.conf{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:7}
+.conf i{position:absolute;top:-14px;width:8px;height:14px;border-radius:2px;opacity:0;animation:fall linear forwards}
+@keyframes fall{0%{opacity:1;transform:translate(0,0) rotate(0)}100%{opacity:0;transform:translate(var(--x),105vh) rotate(540deg)}}
+html{background:#090A1C}
+nav{view-transition-name:nav}
+::view-transition-old(root){animation-duration:.2s;animation-timing-function:ease-in;mix-blend-mode:normal}
+::view-transition-new(root){animation-duration:.38s;animation-timing-function:cubic-bezier(.2,.8,.2,1);mix-blend-mode:normal}
+html[data-dir=up]::view-transition-old(root){animation-name:vt-out}
+html[data-dir=up]::view-transition-new(root){animation-name:vt-in-up}
+html[data-dir=fw]::view-transition-old(root){animation-name:vt-out-l}
+html[data-dir=fw]::view-transition-new(root){animation-name:vt-in-r}
+html[data-dir=bk]::view-transition-old(root){animation-name:vt-out-r}
+html[data-dir=bk]::view-transition-new(root){animation-name:vt-in-l}
+@keyframes vt-out{to{opacity:0}}
+@keyframes vt-in-up{from{opacity:0;transform:translateY(14px)}}
+@keyframes vt-out-l{to{opacity:0;transform:translateX(-26px)}}
+@keyframes vt-out-r{to{opacity:0;transform:translateX(26px)}}
+@keyframes vt-in-r{from{opacity:0;transform:translateX(26px)}}
+@keyframes vt-in-l{from{opacity:0;transform:translateX(-26px)}}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+.ping{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--late);margin-right:7px;animation:pingr 1.6s ease-out infinite}
+@keyframes pingr{0%{box-shadow:0 0 0 0 #FF7A9399}100%{box-shadow:0 0 0 8px #FF7A9300}}
+.kv.cx span:first-child{text-decoration:line-through;text-decoration-color:var(--ok);opacity:.7}
+.etp{display:flex;margin:22px 0 0}
+.etp .e{flex:1;text-align:center;position:relative;font-size:12px;color:var(--mu)}
+.etp .e i{display:block;width:14px;height:14px;border-radius:50%;border:2px solid var(--ln);margin:0 auto 6px;background:var(--bg);position:relative;z-index:1}
+.etp .e::before{content:"";position:absolute;top:6px;left:-50%;right:50%;height:2px;background:var(--ln)}
+.etp .e:first-child::before{display:none}
+.etp .e.on{color:var(--tx)}
+.etp .e.on::before{background:var(--ok)}
+.etp .e.on i{background:var(--ok);border-color:var(--ok);animation:dotpop .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes dotpop{from{transform:scale(0)}}
+.okpop{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:6;animation:okfade 1.6s ease forwards}
+.okpop svg{width:96px;height:96px}
+.okpop circle{fill:#06251Acc;stroke:var(--ok);stroke-width:2;stroke-dasharray:151;stroke-dashoffset:151;animation:draw .5s ease forwards}
+.okpop path{fill:none;stroke:var(--ok);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:40;animation:draw .35s .4s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes okfade{0%{opacity:0;transform:scale(.7)}15%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0}}
 .row{transition:transform .2s,background .2s}
-.row:hover{transform:translateY(-2px);background:#ffffff08}
+.row:active{transform:translateY(-2px);background:#ffffff08}
+@media(hover:hover){.row:hover{transform:translateY(-2px);background:#ffffff08}}
 .fab{transition:transform .25s cubic-bezier(.3,1.6,.5,1),box-shadow .25s}
-.fab:hover,.fab:active{transform:translateY(-6px) scale(1.1);box-shadow:0 14px 30px #8B6BFF99}
-nav button::before{content:none!important}
+.fab:active{transform:translateY(-6px) scale(1.1);box-shadow:0 14px 30px #8B6BFF99}
+@media(hover:hover){.fab:hover{transform:translateY(-6px) scale(1.1);box-shadow:0 14px 30px #8B6BFF99}}
 .ic{width:24px;height:24px;display:block;margin:0 auto 4px;filter:drop-shadow(0 -1px 0 #fff4) drop-shadow(0 2px 2px #0009);transition:transform .25s cubic-bezier(.3,1.6,.5,1),filter .25s}
-nav button:hover .ic,nav button:active .ic{transform:translateY(-7px) scale(1.2);filter:drop-shadow(0 -1px 0 #fff8) drop-shadow(0 6px 4px #000b) drop-shadow(0 0 10px #8B6BFFcc)}
+nav button:active .ic{transform:translateY(-7px) scale(1.2);filter:drop-shadow(0 -1px 0 #fff8) drop-shadow(0 6px 4px #000b) drop-shadow(0 0 10px #8B6BFFcc)}
+@media(hover:hover){nav button:hover .ic{transform:translateY(-7px) scale(1.2);filter:drop-shadow(0 -1px 0 #fff8) drop-shadow(0 6px 4px #000b) drop-shadow(0 0 10px #8B6BFFcc)}}
 nav button.on .ic{color:var(--ac2);filter:drop-shadow(0 0 8px #8B6BFFcc);animation:flt 3s ease-in-out infinite}
 nav button.on:hover .ic{animation:none}
 @keyframes flt{50%{transform:translateY(-3px)}}
 .two span{display:inline-block}
+.gr{margin-top:6px}.gr svg{width:100%;height:auto;display:block}
 h1,h2,p,label,.row span,.seg button,.chip,.kv span,.tag,.two span,.two b,.big{transition:transform .22s cubic-bezier(.3,1.6,.5,1),text-shadow .22s}
-h1:hover,h2:hover,p:hover,label:hover,.row span:hover,.seg button:hover,.chip:hover,.kv span:hover,.tag:hover,.two span:hover{transform:translateY(-2px);text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 16px #8B6BFFaa;animation:none}
-.big:hover,.two b:hover{transform:translateY(-4px) scale(1.06);transform-origin:left center;text-shadow:0 1px 0 #fff8,0 5px 6px #000c,0 0 30px #8B6BFFee;animation:none}
-nav button:hover{text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 14px #8B6BFFaa}
+h1:active,h2:active,p:active,label:active,.row span:active,.seg button:active,.chip:active,.kv span:active,.tag:active,.two span:active{transform:translateY(-2px);text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 16px #8B6BFFaa;animation:none}
+@media(hover:hover){h1:hover,h2:hover,p:hover,label:hover,.row span:hover,.seg button:hover,.chip:hover,.kv span:hover,.tag:hover,.two span:hover{transform:translateY(-2px);text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 16px #8B6BFFaa;animation:none}}
+.big:active,.two b:active{transform:translateY(-4px) scale(1.06);transform-origin:left center;text-shadow:0 1px 0 #fff8,0 5px 6px #000c,0 0 30px #8B6BFFee;animation:none}
+@media(hover:hover){.big:hover,.two b:hover{transform:translateY(-4px) scale(1.06);transform-origin:left center;text-shadow:0 1px 0 #fff8,0 5px 6px #000c,0 0 30px #8B6BFFee;animation:none}}
+nav button:active{text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 14px #8B6BFFaa}
+@media(hover:hover){nav button:hover{text-shadow:0 1px 0 #fff7,0 3px 4px #000b,0 0 14px #8B6BFFaa}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
 <div id="app"></div>
-<nav id="nav"><div></div></nav>
+<nav id="nav"><div></div><i id="ind"></i></nav>
 <div id="toast"></div>
 <script>
 var hoje=new Date();hoje.setHours(0,0,0,0);
@@ -89,8 +198,11 @@ function add(n){var d=new Date(hoje);d.setDate(d.getDate()+n);return d}
 function fd(d){return d.toLocaleDateString("pt-BR",{day:"2-digit",month:"short"})}
 function brl(v){return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"})}
 function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 
-var S={empresa:"Agência Norte Marketing",emp:null,gw:"Asaas",conectado:false,filtro:"todas",regua:[10,5,0,-3],
+var S={empresa:"Agência Norte Marketing",emp:null,gw:"Asaas",conectado:false,filtro:"todas",regua:[10,5,0,-3],canais:{"WhatsApp":true,"E-mail":true},
+ msg:"Olá, {nome}! Passando para lembrar que sua mensalidade de {valor} na {empresa} vence em {vencimento}.\nPague com Pix ou boleto: cobrei.app/p/abc123",
+ hist:[["Mai",6200],["Jun",7100],["Jul",6800],["Ago",8400],["Set",8900]],
  clientes:[
   {id:1,nome:"Padaria Estrela",doc:"12.345.678/0001-90",zap:"(34) 99812-3300",mail:"financeiro@estrela.com"},
   {id:2,nome:"Clínica Vitale",doc:"23.456.789/0001-01",zap:"(34) 99745-1200",mail:"adm@vitale.com"},
@@ -99,7 +211,7 @@ var S={empresa:"Agência Norte Marketing",emp:null,gw:"Asaas",conectado:false,fi
  ],
  cobr:[
   {id:1,nome:"Padaria Estrela",zap:"(34) 99812-3300",mail:"financeiro@estrela.com",valor:2500,venc:add(8),pago:false,rep:"Todo mês"},
-  {id:2,nome:"Clínica Vitale",zap:"(34) 99745-1200",mail:"adm@vitale.com",valor:1800,venc:add(-2),pago:false,rep:"Todo mês"},
+  {id:2,nome:"Clínica Vitale",zap:"(34) 99745-1200",mail:"adm@vitale.com",valor:1800,venc:add(-2),pago:false,visto:true,rep:"Todo mês"},
   {id:3,nome:"Loja Aurora",zap:"(34) 99650-8800",mail:"loja@aurora.com",valor:3200,venc:add(-12),pago:true,rep:"Todo mês"},
   {id:4,nome:"Studio Lume",zap:"(34) 99333-4100",mail:"oi@studiolume.com",valor:950,venc:add(3),pago:false,rep:"Cobrança única"}
  ]};
@@ -111,70 +223,148 @@ function st(c){
 }
 function rot(d){return d>0?d+" dias antes":d===0?"No vencimento":Math.abs(d)+" dias depois"}
 function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},2200)}
-function linhaCobr(c){var s=st(c);return '<button class="row" onclick="go(\'detalhe\','+c.id+')"><span>'+c.nome+'<small>'+brl(c.valor)+' · '+fd(c.venc)+'</small></span><span class="tag '+s.c+'">'+s.t+'</span></button>'}
+function linhaCobr(c){var s=st(c);var row='<button class="row" onclick="go(\'detalhe\','+c.id+')"><span class="lf">'+av(c.nome)+'<span>'+esc(c.nome)+'<small>'+brl(c.valor)+' · '+fd(c.venc)+'</small></span></span><span class="tag '+s.c+'">'+(!c.pago&&s.d<0?'<i class="ping"></i>':'')+s.t+'</span></button>';return '<div class="swr">'+(c.pago?'':'<div class="swa"><button class="a1" onclick="cobrarAgora('+c.id+');closeSw()">Cobrar</button><button class="a2" onclick="pagarRapido('+c.id+')">Pago</button></div>')+'<div class="swf">'+row+'</div></div>'}
+function av(n){var p=String(n).trim().split(/\s+/),h=0,i=(p[0]||"?").charAt(0)+(p.length>1?p[p.length-1].charAt(0):"");for(var k=0;k<n.length;k++)h=(h*31+n.charCodeAt(k))%360;return '<i class="av" style="--h:'+(235+h%95)+'">'+esc(i.toUpperCase())+'</i>'}
+function haptic(){try{if(navigator.vibrate)navigator.vibrate(18)}catch(e){}}
+function closeSw(x){document.querySelectorAll(".swf.open").forEach(function(o){if(o!==x){o.classList.remove("open");o.style.transform=""}})}
+function pagarRapido(id){S.cobr.forEach(function(c){if(c.id===id)c.pago=true});toast("Pagamento confirmado. Lembretes cancelados.");haptic();go(PV);okPop();checaFesta()}
+function insight(pag,rec){var set=S.hist[S.hist.length-1][1],ex=pag+rec,d=Math.round((ex/set-1)*100);return d===0?"Outubro deve fechar igual a setembro.":"Outubro deve fechar com "+brl(ex)+", "+Math.abs(d)+"% "+(d>0?"a mais":"a menos")+" que setembro."}
+function selos(){var L='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">';return '<div class="trust"><span>'+L+'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Dados protegidos</span><span>'+L+'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg>Pix e boleto seguros</span><span>'+L+'<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M16 12.5h3"/></svg>Dinheiro direto na sua conta</span></div>'}
+function vazio(t,d,r,b){return '<div class="vz"><svg viewBox="0 0 96 96"><circle cx="48" cy="48" r="40" fill="none" stroke="#8B6BFF" stroke-width="1.5" stroke-dasharray="4 7"/><circle cx="48" cy="48" r="26" fill="#12103A" stroke="#25205A"/><path d="M48 38v20M38 48h20" stroke="#C0B1FF" stroke-width="3" stroke-linecap="round"/></svg><b>'+t+'</b><p>'+d+'</p><button class="btn" onclick="go(\''+r+'\')">'+b+'</button></div>'}
+function checaFesta(){var all=S.cobr.length&&S.cobr.every(function(c){return c.pago});if(all&&!S.festa){S.festa=true;setTimeout(confete,900)}else if(!all)S.festa=false}
+function confete(){if(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)return;var w=document.createElement("div");w.className="conf";var c=["#8B6BFF","#C0B1FF","#5EE0B0","#FFC76B","#FF7A93"];for(var i=0;i<46;i++){var p=document.createElement("i");p.style.cssText="left:"+Math.random()*100+"%;background:"+c[i%5]+";animation-delay:"+Math.random()*.6+"s;animation-duration:"+(1.8+Math.random()*1.4)+"s;--x:"+(Math.random()*120-60)+"px";w.appendChild(p)}document.body.appendChild(w);setTimeout(function(){w.remove()},3600)}
+function como(){return '<div class="how"><h2>Como funciona</h2><div class="mk"><div class="ph"><i class="ln w1"></i><i class="ln w2"></i><i class="ln w3"></i></div><div class="mt"><b>Cadastre o cliente</b><p>Nome, WhatsApp e e-mail. Uma vez só.</p></div></div><div class="mk r"><div class="ph"><span class="ch">10 dias antes</span><span class="ch">5 dias antes</span><span class="ch on">Hoje</span></div><div class="mt"><b>O Cobrei avisa por você</b><p>Lembretes no WhatsApp e no e-mail, na hora certa.</p></div></div><div class="mk"><div class="ph ok3"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l8 8 14-16"/></svg><b>R$ 2.500</b></div><div class="mt"><b>Você recebe</b><p>O Pix cai direto na sua conta e os avisos param sozinhos.</p></div></div></div>'}
+function initHow(){var els=document.querySelectorAll(".how .mk");if(!("IntersectionObserver" in window)){els.forEach(function(e){e.classList.add("in")});return}var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add("in");io.unobserve(x.target)}})},{threshold:.25});els.forEach(function(e){io.observe(e)})}
+function canaisTxt(){var a=Object.keys(S.canais).filter(function(k){return S.canais[k]});return a.length?a.join(" e "):"nenhum canal"}
+function texto(c){return S.msg.replace(/{nome}/g,c.nome).replace(/{valor}/g,brl(c.valor)).replace(/{vencimento}/g,fd(c.venc)).replace(/{empresa}/g,S.empresa)}
+function grafico(pag){
+  var m=S.hist.concat([["Out",pag]]),mx=Math.max.apply(null,m.map(function(x){return x[1]}))||1,s="";
+  m.forEach(function(x,i){var h=Math.max(4,x[1]/mx*100),X=12+i*48;
+   s+='<rect x="'+X+'" y="'+(112-h)+'" width="30" height="'+h+'" rx="6" fill="'+(i===m.length-1?'#C0B1FF':'#8B6BFF')+'"/><text x="'+(X+15)+'" y="130" text-anchor="middle" font-size="10" fill="#8D87BE">'+x[0]+'</text>'});
+  return '<div class="gr"><svg viewBox="0 0 300 136" role="img" aria-label="Valor recebido por mês">'+s+'</svg></div>';
+}
 
 var tabs=[["inicio","Início"],["clientes","Clientes"],["cobrancas","Cobranças"],["lembretes","Lembretes"],["conta","Conta"]];
 var ICO={inicio:'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>',clientes:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18 14.2c2 .6 3.5 2.4 3.5 5.8"/>',cobrancas:'<rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18M7 15h4"/>',lembretes:'<path d="M6 16V11a6 6 0 0 1 12 0v5l1.5 2h-15zM10 21h4"/>',conta:'<circle cx="12" cy="9" r="3.5"/><path d="M5 20c.8-3.4 3.6-5 7-5s6.2 1.6 7 5"/>'};
 var V={
- welcome:function(){return '<div class="welcome"><div class="logo">₢</div><h1>Cobrei</h1><p>Seus clientes são lembrados na hora certa. Você só recebe.</p><button class="btn" onclick="go(\'cadastro\')">Criar minha conta</button><button class="btn ghost" onclick="go(\'inicio\')">Já tenho conta</button></div>'},
+ welcome:function(){return '<div class="welcome"><div class="logo">₢</div><h1>Cobrei</h1><p>Seus clientes são lembrados na hora certa. Você só recebe.</p><button class="btn" onclick="go(\'cadastro\')">Criar minha conta</button><button class="btn ghost" onclick="go(\'inicio\')">Já tenho conta</button>'+selos()+'<div class="hint">Role e veja como funciona ↓</div></div>'+como()},
  cadastro:function(){return '<button class="back" onclick="go(\'welcome\')">‹ Voltar</button><h1>Crie sua conta</h1><p>Cadastre sua empresa para começar a cobrar.</p><label>Seu nome</label><input id="rNome" placeholder="Nome completo"><label>Nome da empresa</label><input id="rEmp" placeholder="Ex.: Agência Norte Marketing"><label>CNPJ</label><input id="rDoc" inputmode="numeric" placeholder="00.000.000/0000-00"><label>E-mail</label><input id="rMail" inputmode="email" placeholder="voce@empresa.com"><label>WhatsApp</label><input id="rZap" inputmode="tel" placeholder="(34) 99999-0000"><label>Senha</label><input id="rSen" type="password"><button class="btn" onclick="cadastrar()">Criar conta</button>'},
  clientes:function(){
-  var l=S.clientes.map(function(c){var n=S.cobr.filter(function(x){return x.nome===c.nome}).length;return '<div class="row" style="cursor:default"><span>'+c.nome+'<small>'+c.zap+' · '+c.mail+'</small></span><span class="tag mu">'+n+(n===1?' cobrança':' cobranças')+'</span></div>'}).join("");
-  return '<h1>Clientes</h1><p>Quem deve a você. Cadastre uma vez e use em várias cobranças.</p>'+(l||'<p>Nenhum cliente ainda. Toque em + para cadastrar o primeiro.</p>')+'<button class="fab" aria-label="Novo cliente" onclick="go(\'novoCliente\')">+</button>';
+  var l=S.clientes.map(function(c){var n=S.cobr.filter(function(x){return x.nome===c.nome}),at=n.filter(function(x){return!x.pago&&st(x).d<0}).length;return '<div class="row" style="cursor:default"><span class="lf">'+av(c.nome)+'<span>'+esc(c.nome)+'<small>'+esc(c.zap)+' · '+esc(c.mail)+'</small></span></span><span class="tag '+(at?'t-late':'mu')+'">'+(at?at+' em atraso':n.length+(n.length===1?' cobrança':' cobranças'))+'</span></div>'}).join("");
+  return '<h1>Clientes</h1><p>Quem deve a você. Cadastre uma vez e use em várias cobranças.</p>'+(l||vazio("Nenhum cliente ainda","Cadastre o primeiro e ele já entra na régua de cobrança.","novoCliente","Cadastrar cliente"))+'<button class="fab" aria-label="Novo cliente" onclick="go(\'novoCliente\')">+</button>';
  },
  novoCliente:function(){return '<button class="back" onclick="go(\'clientes\')">‹ Voltar</button><h1>Novo cliente</h1><p>Esses dados ficam só na sua conta.</p><label>Nome ou empresa</label><input id="cNome" placeholder="Ex.: Padaria Estrela"><label>CPF ou CNPJ</label><input id="cDoc" inputmode="numeric"><label>WhatsApp</label><input id="cZap" inputmode="tel" placeholder="(34) 99999-0000"><label>E-mail</label><input id="cMail" inputmode="email" placeholder="financeiro@cliente.com"><button class="btn" onclick="salvarCliente()">Salvar cliente</button>'},
  inicio:function(){
   var rec=0,pag=0,atr=0;S.cobr.forEach(function(c){if(c.pago)pag+=c.valor;else{rec+=c.valor;if(st(c).d<0)atr+=c.valor}});
   var pct=Math.round(pag/(pag+rec||1)*100);
   var prox=S.cobr.filter(function(c){return!c.pago}).sort(function(a,b){return a.venc-b.venc}).map(linhaCobr).join("");
-  return '<p style="margin-bottom:2px">Olá, '+S.empresa+'</p><p style="margin:0">A receber</p><div class="big">'+brl(rec)+'</div><div class="bar"><i style="width:'+pct+'%"></i></div>'+
-   '<div class="two"><div><b class="ok">'+brl(pag)+'</b><span>recebido</span></div><div><b style="color:var(--late)">'+brl(atr)+'</b><span>em atraso</span></div></div>'+
-   '<h2>Próximos vencimentos</h2>'+(prox||'<p>Tudo pago por aqui.</p>')+'<button class="fab" aria-label="Nova cobrança" onclick="go(\'nova\')">+</button>';
+  return '<p style="margin-bottom:2px">Olá, '+esc(S.empresa)+'</p><div class="saldo glass"><p style="margin:0">A receber</p><div class="big" data-n="'+rec+'">'+brl(rec)+'</div><div class="bar"><i data-w="'+pct+'" style="width:0"></i></div>'+
+   '<div class="two"><div><b class="ok" data-n="'+pag+'">'+brl(pag)+'</b><span>recebido</span></div><div><b style="color:var(--late)" data-n="'+atr+'">'+brl(atr)+'</b><span>em atraso</span></div></div><div class="acts"><button class="btn" onclick="go(\'nova\')">Nova cobrança</button><button class="btn ghost" onclick="cobrarAtrasadas()">Cobrar agora</button></div></div>'+
+   '<div class="glass cht"><h2>Recebido nos últimos meses</h2><p style="margin:0;font-size:13px">'+pct+'% das cobranças deste mês já foram pagas.</p><p class="ins">'+insight(pag,rec)+'</p>'+grafico(pag)+'</div>'+
+   '<h2>Próximos vencimentos</h2>'+(prox||'<p class="ok">Mês fechado: tudo recebido. Parabéns!</p>')+'<button class="fab" aria-label="Nova cobrança" onclick="go(\'nova\')">+</button>';
  },
  cobrancas:function(){
   var f=S.filtro,seg=[["todas","Todas"],["avencer","A vencer"],["atrasadas","Atrasadas"],["pagas","Pagas"]].map(function(x){return '<button class="'+(f===x[0]?'on':'')+'" onclick="S.filtro=\''+x[0]+'\';go(\'cobrancas\')">'+x[1]+'</button>'}).join("");
   var l=S.cobr.filter(function(c){var s=st(c);return f==="todas"||(f==="pagas"&&c.pago)||(f==="atrasadas"&&!c.pago&&s.d<0)||(f==="avencer"&&!c.pago&&s.d>=0)});
-  return '<h1>Cobranças</h1>'+'<div class="seg">'+seg+'</div>'+(l.map(linhaCobr).join("")||'<p style="margin-top:20px">Nada por aqui ainda.</p>')+'<button class="fab" aria-label="Nova cobrança" onclick="go(\'nova\')">+</button>';
+  return '<h1>Cobranças</h1>'+'<div class="seg">'+seg+'</div><p style="font-size:12px;margin:6px 0 0">Dica: arraste uma cobrança para o lado para cobrar ou marcar como paga.</p>'+(l.map(linhaCobr).join("")||vazio("Nada por aqui","Nenhuma cobrança nesta lista por enquanto.","nova","Nova cobrança"))+'<button class="fab" aria-label="Nova cobrança" onclick="go(\'nova\')">+</button>';
  },
  detalhe:function(id){
   var c=S.cobr.filter(function(x){return x.id===id})[0],s=st(c);
-  var tl=S.regua.map(function(d){var dt=new Date(c.venc);dt.setDate(dt.getDate()-d);return '<div class="kv"><span><i class="dot'+(c.pago?' d':'')+'"></i>'+rot(d)+'</span><span>'+(c.pago?'cancelado':dt<hoje?'enviado':fd(dt))+'</span></div>'}).join("");
-  return '<button class="back" onclick="go(\'cobrancas\')">‹ Voltar</button><p style="margin:0">'+c.nome+'</p><div class="big">'+brl(c.valor)+'</div><p class="tag '+s.c+'" style="margin-top:6px">'+s.t+'</p>'+
-   '<h2>Detalhes</h2><div class="kv"><span>Vencimento</span><span>'+fd(c.venc)+'</span></div><div class="kv"><span>Repetição</span><span>'+c.rep+'</span></div><div class="kv"><span>WhatsApp</span><span>'+c.zap+'</span></div><div class="kv"><span>E-mail</span><span>'+c.mail+'</span></div>'+
+  var tl=S.regua.map(function(d){var dt=new Date(c.venc);dt.setDate(dt.getDate()-d);return '<div class="kv'+(c.pago?' cx':'')+'"><span><i class="dot'+(c.pago?' d':'')+'"></i>'+rot(d)+'</span><span>'+(c.pago?'cancelado':dt<hoje?'enviado':fd(dt))+'</span></div>'}).join("");
+  return '<button class="back" onclick="go(\'cobrancas\')">‹ Voltar</button><p style="margin:0">'+esc(c.nome)+'</p><div class="big">'+brl(c.valor)+'</div><p class="tag '+s.c+'" style="margin-top:6px">'+s.t+'</p>'+etapas(c)+
+   '<h2>Detalhes</h2><div class="kv"><span>Vencimento</span><span>'+fd(c.venc)+'</span></div><div class="kv"><span>Repetição</span><span>'+c.rep+'</span></div><div class="kv"><span>WhatsApp</span><span>'+esc(c.zap)+'</span></div><div class="kv"><span>E-mail</span><span>'+esc(c.mail)+'</span></div>'+
    '<h2>Lembretes</h2>'+tl+
-   (c.pago?'':'<button class="btn" onclick="pagar('+c.id+')">Marcar como pago</button><button class="btn ghost" onclick="toast(\'Lembrete enviado agora\')">Reenviar lembrete</button>');
+   (c.pago?'':'<button class="btn" onclick="pagar('+c.id+')">Marcar como pago</button><button class="btn ghost" onclick="cobrarAgora('+c.id+')">Cobrar agora</button>');
  },
  nova:function(){
   return '<button class="back" onclick="go(\'inicio\')">‹ Voltar</button><h1>Nova cobrança</h1><p>Preencha uma vez. O Cobrei cuida do resto.</p>'+
-   '<label>Cliente</label><select id="nCli">'+S.clientes.map(function(c){return '<option value="'+c.id+'">'+c.nome+'</option>'}).join("")+'</select><button class="back" style="margin:10px 0 0;color:var(--ac2)" onclick="go(\'novoCliente\')">+ Cadastrar novo cliente</button>'+
+   '<label>Cliente</label><select id="nCli">'+S.clientes.map(function(c){return '<option value="'+c.id+'">'+esc(c.nome)+'</option>'}).join("")+'</select><button class="back" style="margin:10px 0 0;color:var(--ac2)" onclick="go(\'novoCliente\')">+ Cadastrar novo cliente</button>'+
    '<label>Valor (R$)</label><input id="nVal" inputmode="decimal" value="2500"><label>Vencimento</label><input id="nDia" type="date" value="'+add(10).toISOString().slice(0,10)+'"><label>Repetição</label><select id="nRep"><option>Todo mês</option><option>Cobrança única</option></select>'+
    '<button class="btn" onclick="salvar()">Criar cobrança</button>';
  },
  lembretes:function(){
-  var c=S.cobr[0],chips=[10,7,5,3,1,0,-3].map(function(d){return '<button class="chip'+(S.regua.indexOf(d)>-1?' on':'')+'" onclick="tog('+d+')">'+rot(d)+'</button>'}).join("");
-  return '<h1>Lembretes</h1><p>Escolha quando o Cobrei avisa seus clientes. Vale para todas as cobranças.</p><h2>Quando avisar</h2><div class="chips">'+chips+'</div>'+
-   '<h2>Como o cliente recebe</h2><div class="msg">Olá, '+c.nome+'! Passando para lembrar que sua mensalidade de '+brl(c.valor)+' na '+S.empresa+' vence em '+fd(c.venc)+'.\nPague com Pix ou boleto: cobrei.app/p/abc123</div>'+
-   '<p style="margin-top:14px;font-size:13px">Enviado por WhatsApp e e-mail. Quando o pagamento cai, os avisos param sozinhos.</p>';
+  var chips=[10,7,5,3,1,0,-3,-7].map(function(d){return '<button class="chip'+(S.regua.indexOf(d)>-1?' on':'')+'" onclick="tog('+d+')">'+rot(d)+'</button>'}).join("");
+  var ca=["WhatsApp","E-mail"].map(function(k){return '<button class="chip'+(S.canais[k]?' on':'')+'" onclick="canal(\''+k+'\')">'+k+'</button>'}).join("");
+  return '<h1>Lembretes</h1><p>Escolha quando e por onde o Cobrei avisa seus clientes. Vale para todas as cobranças.</p><h2>Quando avisar</h2><div class="chips">'+chips+'</div>'+
+   '<h2>Por onde avisar</h2><div class="chips">'+ca+'</div>'+
+   '<h2>Mensagem</h2><textarea id="msg" aria-label="Texto da mensagem" oninput="S.msg=this.value;prev()">'+esc(S.msg)+'</textarea><p style="margin-top:8px;font-size:13px">Use {nome}, {valor}, {vencimento} e {empresa}.</p>'+
+   '<h2>Como o cliente recebe</h2><div class="msg" id="pv"></div>'+
+   '<p style="margin-top:14px;font-size:13px">Enviado por '+canaisTxt()+'. Quando o pagamento cai, os avisos param sozinhos.</p>';
  },
  conta:function(){
   var g=["Asaas","Efí","Mercado Pago"].map(function(x){return '<button class="chip'+(S.gw===x?' on':'')+'" onclick="S.gw=\''+x+'\';go(\'conta\')">'+x+'</button>'}).join("");
-  return '<h1>Sua conta</h1><p>O dinheiro cai direto na sua conta. O Cobrei só cria e acompanha as cobranças.</p>'+
-   '<label>Nome da empresa</label><input id="eNome" value="'+S.empresa+'" onchange="S.empresa=this.value">'+
+  return '<h1>Sua conta</h1><p>O dinheiro cai direto na sua conta. O Cobrei só cria e acompanha as cobranças.</p>'+selos().replace("trust","trust l")+
+   '<label>Nome da empresa</label><input id="eNome" value="'+esc(S.empresa)+'" onchange="S.empresa=this.value">'+
    '<h2>Onde você recebe</h2><div class="chips">'+g+'</div>'+
    (S.conectado?'<p class="ok" style="margin-top:20px">Conta '+S.gw+' conectada. Pix e boleto liberados.</p><button class="btn ghost" onclick="go(\'inicio\')">Ir para o início</button>':'<button class="btn" onclick="conectar()">Conectar '+S.gw+'</button>');
  }
 };
+function animaInicio(){checaFesta();
+  var red=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+  document.querySelectorAll("[data-n]").forEach(function(el){
+    var n=+el.dataset.n,t0=null;if(red)return;
+    el.textContent=brl(0);
+    function f(t){if(!t0)t0=t;var p=Math.min((t-t0)/1000,1),e=1-Math.pow(1-p,3);el.textContent=brl(n*e);if(p<1)requestAnimationFrame(f)}
+    requestAnimationFrame(f);
+  });
+  var b=document.querySelector(".bar i");
+  if(b)requestAnimationFrame(function(){requestAnimationFrame(function(){b.style.width=b.dataset.w+"%"})});
+}
+function prev(){var p=$("pv");if(p)p.textContent=texto(S.cobr[0]||{nome:"Cliente",valor:0,venc:hoje})}
+var PV="";
+(function(){
+ var el=null,sx=0,base=0,dx=0,moved=false,blk=false,W=148;
+ document.addEventListener("pointerdown",function(e){
+  var f=e.target.closest&&e.target.closest(".swf");
+  if(!f||!f.parentNode.querySelector(".swa"))return;
+  closeSw(f);el=f;sx=e.clientX;dx=0;moved=false;base=f.classList.contains("open")?-W:0;f.style.transition="none"});
+ document.addEventListener("pointermove",function(e){
+  if(!el)return;var x=e.clientX-sx;
+  if(!moved&&Math.abs(x)<10)return;moved=true;dx=x;
+  el.style.transform="translateX("+Math.max(-W-14,Math.min(0,base+x))+"px)"});
+ function end(){
+  if(!el)return;var f=el;el=null;f.style.transition="";
+  if(moved){var open=base+dx<-W/2;f.classList.toggle("open",open);f.style.transform=open?"translateX(-"+W+"px)":"";blk=true;setTimeout(function(){blk=false},60)}
+  else f.style.transform=f.classList.contains("open")?"translateX(-"+W+"px)":""}
+ document.addEventListener("pointerup",end);document.addEventListener("pointercancel",end);
+ document.addEventListener("click",function(e){
+  if(blk){e.stopPropagation();e.preventDefault();return}
+  var o=e.target.closest&&e.target.closest(".swf.open");
+  if(o){e.stopPropagation();e.preventDefault();closeSw()}
+ },true);
+})();
+function moveInd(){var b=document.querySelector("nav button.on"),i=$("ind");if(b&&i){var r=b.getBoundingClientRect();i.style.transform="translateX("+(r.left+r.width/2-17)+"px)"}}
+window.addEventListener("resize",moveInd);
 function go(v,a){
+  if(v===PV||!PV||(window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches)){PV=v;render(v,a);return}
+  PV=v;
+  $("app").classList.add("out");
+  setTimeout(function(){render(v,a)},140);
+}
+function render(v,a){
   if(v==="conta"&&$("eNome"))S.empresa=$("eNome").value;
   $("app").innerHTML=V[v](a);window.scrollTo(0,0);
+  if(v==="lembretes")prev();
+  if(v==="welcome")initHow();
+  $("app").className=v==="inicio"?"ini":"pg";
+  if(v==="inicio")animaInicio();
   var show=["welcome","cadastro","nova","novoCliente","detalhe"].indexOf(v)<0;
   $("nav").style.display=show?"flex":"none";
-  var cur=v;
-  $("nav").firstChild.innerHTML=tabs.map(function(t){return '<button class="'+(t[0]===cur?'on':'')+'" onclick="go(\''+t[0]+'\')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICO[t[0]]+'</svg>'+t[1]+'</button>'}).join("");
+  $("nav").firstChild.innerHTML=tabs.map(function(t){return '<button class="'+(t[0]===v?'on':'')+'" onclick="go(\''+t[0]+'\')"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+ICO[t[0]]+'</svg>'+t[1]+'</button>'}).join("");
+  moveInd();
 }
 function conectar(){S.conectado=true;toast("Conta conectada");go("inicio")}
 function tog(d){var i=S.regua.indexOf(d);if(i>-1)S.regua.splice(i,1);else S.regua.push(d);S.regua.sort(function(a,b){return b-a});go("lembretes")}
-function pagar(id){S.cobr.forEach(function(c){if(c.id===id)c.pago=true});toast("Pagamento confirmado. Lembretes cancelados.");go("detalhe",id)}
+function canal(k){S.canais[k]=!S.canais[k];go("lembretes")}
+function etapas(c){
+  var env=S.regua.some(function(d){var x=new Date(c.venc);x.setDate(x.getDate()-d);return x<=hoje});
+  var a=[["Enviado",env||c.pago],["Visto",c.pago||c.visto],["Pago",c.pago]];
+  return '<div class="etp">'+a.map(function(x){return '<div class="e'+(x[1]?' on':'')+'"><i></i><span>'+x[0]+'</span></div>'}).join("")+'</div>';
+}
+function okPop(){var d=document.createElement("div");d.className="okpop";d.innerHTML='<svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M15 27l8 8 14-16"/></svg>';document.body.appendChild(d);setTimeout(function(){d.remove()},1600)}
+function pagar(id){S.cobr.forEach(function(c){if(c.id===id)c.pago=true});toast("Pagamento confirmado. Lembretes cancelados.");go("detalhe",id);okPop();haptic();checaFesta()}
+function cobrarAtrasadas(){haptic();var n=S.cobr.filter(function(c){return!c.pago&&st(c).d<0}).length;toast(n?"Cobrança enviada para "+n+(n===1?" cliente":" clientes")+" em atraso":"Nenhum cliente em atraso")}
+function cobrarAgora(id){haptic();var c=S.cobr.filter(function(x){return x.id===id})[0];toast("Cobrança enviada para "+c.nome+" por "+canaisTxt())}
 function salvar(){
   var cl=S.clientes.filter(function(x){return x.id==$("nCli").value})[0];if(!cl){toast("Cadastre um cliente primeiro");return}
   var p=$("nDia").value.split("-");
@@ -192,7 +382,7 @@ function salvarCliente(){
   S.clientes.push({id:Date.now(),nome:n,doc:$("cDoc").value,zap:$("cZap").value||"—",mail:$("cMail").value||"—"});
   toast("Cliente salvo");go("clientes");
 }
-go("welcome");
+PV="welcome";render("welcome");
 </script>
 </body>
 </html>
